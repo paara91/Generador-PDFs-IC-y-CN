@@ -13,6 +13,7 @@ from template_render import render_idea_chart_html, render_caso_negocio_html
 NAVY_900 = "#000D27"
 NAVY_CARD = "#142038"
 CYAN = "#00b2f0"
+HOVER_BLUE = "#046AB0"
 TEXT_SECONDARY = "#9fc3d6"
 
 DOC_TYPES = {
@@ -96,8 +97,8 @@ def _inject_brand_css():
         div[data-testid="stDownloadButton"] > button:focus,
         div[data-testid="stDownloadButton"] > button:focus:not(:active),
         div[data-testid="stDownloadButton"] > button:active {{
-            background-color: {CYAN} !important; color: {NAVY_900} !important;
-            border-color: {CYAN} !important;
+            background-color: {HOVER_BLUE} !important; color: #f7fcff !important;
+            border-color: {HOVER_BLUE} !important;
         }}
         div[data-testid="stButton"] > button[kind="secondary"],
         div[data-testid="stDownloadButton"] > button[kind="secondary"] {{
@@ -112,8 +113,8 @@ def _inject_brand_css():
         div[data-testid="stDownloadButton"] > button[kind="secondary"]:focus,
         div[data-testid="stDownloadButton"] > button[kind="secondary"]:focus:not(:active),
         div[data-testid="stDownloadButton"] > button[kind="secondary"]:active {{
-            background-color: rgba(255,255,255,0.04) !important; color: #f7fcff !important;
-            border-color: {CYAN} !important;
+            background-color: rgba(4,106,176,0.12) !important; color: #f7fcff !important;
+            border-color: {HOVER_BLUE} !important;
         }}
 
         [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {{
