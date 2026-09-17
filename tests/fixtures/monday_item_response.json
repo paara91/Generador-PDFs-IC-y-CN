@@ -1,0 +1,22 @@
+{
+  "data": {
+    "items": [
+      {
+        "id": "1001",
+        "name": "ATENEA NARANJA PET 300ML",
+        "column_values": [
+          {
+            "id": "uen",
+            "text": "Frutas",
+            "value": "{\"index\": 2}",
+            "column": {
+              "title": "UEN",
+              "type": "color",
+              "settings_str": "{\"labels\": {\"2\": \"Frutas\"}, \"labels_colors\": {\"2\": {\"color\": \"#FCB820\"}}}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

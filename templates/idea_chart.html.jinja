@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 18mm 16mm 14mm 16mm; }
+  body { font-family: 'DejaVu Sans', Arial, sans-serif; color: #222; margin: 0; }
+  h1.doc-title {
+    text-align: center; font-size: {{ title_font_size }}pt; font-weight: 800; color: #111;
+    white-space: nowrap; margin: 0 0 6mm;
+  }
+  table.doc-table {
+    width: 100%; border-collapse: collapse; margin-bottom: 5mm;
+    border: 0.4pt solid #edf1f6; table-layout: fixed;
+  }
+  table.doc-table td { border: 0.4pt solid #edf1f6; padding: 2.6mm 3mm; font-size: 10pt; word-wrap: break-word; }
+  tr.head-bar td { background: #7391C6; color: #fff; font-weight: 700; text-align: center; font-size: 9.5pt; border-color: #87a3d0; }
+  tr.head-val td { text-align: center; font-weight: 700; }
+  td.label { background: #A0B4DE; color: #fff; font-weight: 700; width: 34%; }
+  .footer { text-align: center; font-size: 8pt; color: #9aa5b5; margin-top: 4mm; }
+  .ebitda { font-weight: 700; color: #7391C6; }
+  img.product-photo { max-width: 100%; max-height: 28mm; }
+</style>
+</head>
+<body>
+  <h1 class="doc-title">IDEA CHART PROYECTO {{ nombre_proyecto }}</h1>
+
+  <table class="doc-table">
+    <tr class="head-bar">
+      <td style="width:38%">NOMBRE DEL PROYECTO</td>
+      <td style="width:32%">RESPONSABLE</td>
+      <td style="width:30%">UEN</td>
+    </tr>
+    <tr class="head-val">
+      <td>{{ nombre_proyecto }}</td>
+      <td>{{ responsable }}</td>
+      <td>{{ uen_pill|safe }}</td>
+    </tr>
+  </table>
+
+  <table class="doc-table">
+    <tr>
+      <td class="label">Descripción de la Idea</td>
+      <td>{{ descripcion_idea }}</td>
+      {% if imagen_producto_src %}
+      <td rowspan="4" style="width:26%; text-align:center; vertical-align:middle;">
+        <img class="product-photo" src="{{ imagen_producto_src }}">
+      </td>
+      {% endif %}
+    </tr>
+    <tr><td class="label">Presentaciones y PVSP ($)</td><td>{{ presentaciones_pvsp }}</td></tr>
+    <tr><td class="label">Lanzamiento estimado</td><td>{{ lanzamiento_estimado }}</td></tr>
+    <tr><td class="label">%EBITDA estimado</td><td><span class="ebitda">{{ ebitda_estimado }}</span></td></tr>
+  </table>
+
+  <table class="doc-table">
+    <tr><td class="label">Sabores</td><td>{{ sabores }}</td></tr>
+    <tr><td class="label">Volumen estimado CU</td><td>{{ volumen_estimado_cu }}</td></tr>
+    <tr><td class="label">Canales</td><td>{{ canales }}</td></tr>
+    <tr><td class="label">Regiones</td><td>{{ regiones }}</td></tr>
+    <tr><td class="label">Centro Productor</td><td>{{ centro_productor }}</td></tr>
+    <tr><td class="label">Pre factibilidad Técnica</td><td>{{ pre_factibilidad_tecnica }}</td></tr>
+  </table>
+
+  <div class="footer">Idea Chart · Proyecto {{ nombre_proyecto }} · Confidencial</div>
+</body>
+</html>

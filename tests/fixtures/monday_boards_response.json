@@ -1,0 +1,20 @@
+{
+  "data": {
+    "boards": [
+      {
+        "items_page": {
+          "items": [
+            {
+              "id": "1001",
+              "name": "ATENEA NARANJA PET 300ML",
+              "created_at": "2026-09-01T10:00:00Z",
+              "column_values": [
+                {"id": "status", "text": "Aprobado"}
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
