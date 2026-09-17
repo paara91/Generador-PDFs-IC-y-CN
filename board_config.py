@@ -28,7 +28,7 @@ COLUMN_IDS_IDEA_CHART = {
     "regiones": "selecci_n_m_ltiple__1",  # "Regiones"
     "centro_productor": "selecci_n_m_ltiple_mkn81124",  # "Centro de producción"
     "pre_factibilidad_tecnica": "texto_largo9__1",  # "Pre factibilidad técnica"
-    "archivo_pdf": "file_mm786v23",  # "PDF generado" (created via API for this project)
+    "archivo_pdf": "file_mm786v23",  # "PDF IC" (created via API for this project)
 }
 
 # Internal field key -> Monday.com column id, for the Caso de Negocio board.
@@ -58,5 +58,5 @@ COLUMN_IDS_CASO_NEGOCIO = {
     "volumenes_iniciativa": "long_text_mkt31cey",  # "Volúmenes 3 primeros meses"
     "ebitda_iniciativa": "long_text_mkt381tk",  # "EBITDA"
     "observaciones_generales": "long_text_mkq0z4n9",
-    "archivo_pdf": "file_mkq0bs6w",  # "Adjuntos"
+    "archivo_pdf": "file_mm79kv19",  # "PDF CN" (created via API for this project)
 }
