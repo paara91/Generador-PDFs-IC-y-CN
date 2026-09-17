@@ -88,12 +88,33 @@ def _inject_brand_css():
             background-color: {CYAN}; color: {NAVY_900}; font-weight: 800;
             border-radius: 12px; border: none; width: 100%;
         }}
+        div[data-testid="stButton"] > button:hover,
+        div[data-testid="stButton"] > button:focus,
+        div[data-testid="stButton"] > button:focus:not(:active),
+        div[data-testid="stButton"] > button:active,
+        div[data-testid="stDownloadButton"] > button:hover,
+        div[data-testid="stDownloadButton"] > button:focus,
+        div[data-testid="stDownloadButton"] > button:focus:not(:active),
+        div[data-testid="stDownloadButton"] > button:active {{
+            background-color: {CYAN} !important; color: {NAVY_900} !important;
+            border-color: {CYAN} !important;
+        }}
         div[data-testid="stButton"] > button[kind="secondary"],
         div[data-testid="stDownloadButton"] > button[kind="secondary"] {{
             background-color: rgba(255,255,255,0.04) !important; color: #f7fcff; font-weight: 700;
             border: 1.5px solid rgba(255,255,255,0.22) !important; border-radius: 12px;
         }}
-        div[data-testid="stButton"] > button[kind="secondary"]:hover {{ border-color: {CYAN} !important; }}
+        div[data-testid="stButton"] > button[kind="secondary"]:hover,
+        div[data-testid="stButton"] > button[kind="secondary"]:focus,
+        div[data-testid="stButton"] > button[kind="secondary"]:focus:not(:active),
+        div[data-testid="stButton"] > button[kind="secondary"]:active,
+        div[data-testid="stDownloadButton"] > button[kind="secondary"]:hover,
+        div[data-testid="stDownloadButton"] > button[kind="secondary"]:focus,
+        div[data-testid="stDownloadButton"] > button[kind="secondary"]:focus:not(:active),
+        div[data-testid="stDownloadButton"] > button[kind="secondary"]:active {{
+            background-color: rgba(255,255,255,0.04) !important; color: #f7fcff !important;
+            border-color: {CYAN} !important;
+        }}
 
         [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {{
             color: {TEXT_SECONDARY} !important; font-weight: 700 !important;
