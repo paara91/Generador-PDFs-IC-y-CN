@@ -9,6 +9,12 @@ from monday_client import MondayClient
 from pdf_render import render_html_to_pdf
 from template_render import render_idea_chart_html, render_caso_negocio_html
 
+# Marca Postobón — mismos tonos que la app de Shark Tank (Comité de Innovación)
+NAVY_900 = "#000D27"
+NAVY_CARD = "#142038"
+CYAN = "#00b2f0"
+TEXT_SECONDARY = "#9fc3d6"
+
 DOC_TYPES = {
     "idea_chart": {
         "label": "Idea Chart",
@@ -53,6 +59,76 @@ def _format_short_date(iso_datetime: str | None) -> str:
     return iso_datetime[:10]
 
 
+def _inject_brand_css():
+    st.markdown(
+        f"""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap');
+        html, body, .stApp, .stApp *:not([data-testid="stIconMaterial"]) {{
+            font-family: 'Montserrat', sans-serif !important;
+        }}
+        .stApp {{ background-color: {NAVY_900}; color: #f7fcff; }}
+        h1, h2, h3, h4, h5 {{ color: #f7fcff !important; }}
+
+        /* Tarjeta central: el mismo look de "card" que en Shark Tank */
+        div[data-testid="stAppViewContainer"] .block-container {{
+            background-color: {NAVY_CARD};
+            border-radius: 28px;
+            padding: 2.4rem 2.6rem 2.8rem;
+            margin-top: 3rem;
+            max-width: 620px;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 30px 60px rgba(0,0,0,.35);
+            position: relative; z-index: 1;
+        }}
+
+        [data-testid="stImage"] img {{ filter: brightness(0) invert(1); opacity: .92; }}
+
+        div[data-testid="stButton"] > button, div[data-testid="stDownloadButton"] > button {{
+            background-color: {CYAN}; color: {NAVY_900}; font-weight: 800;
+            border-radius: 12px; border: none; width: 100%;
+        }}
+        div[data-testid="stButton"] > button[kind="secondary"],
+        div[data-testid="stDownloadButton"] > button[kind="secondary"] {{
+            background-color: rgba(255,255,255,0.04) !important; color: #f7fcff; font-weight: 700;
+            border: 1.5px solid rgba(255,255,255,0.22) !important; border-radius: 12px;
+        }}
+        div[data-testid="stButton"] > button[kind="secondary"]:hover {{ border-color: {CYAN} !important; }}
+
+        [data-testid="stWidgetLabel"] p, [data-testid="stWidgetLabel"] label {{
+            color: {TEXT_SECONDARY} !important; font-weight: 700 !important;
+            text-transform: uppercase; letter-spacing: .06em; font-size: 12px !important;
+        }}
+
+        div[data-baseweb="select"] > div, div[data-testid="stSelectbox"] > div > div {{
+            background-color: rgba(255,255,255,0.06) !important;
+            border: 1.5px solid rgba(255,255,255,0.24) !important;
+            border-radius: 12px !important;
+        }}
+        div[data-baseweb="select"] div, div[data-testid="stSelectbox"] * {{ color: #f7fcff !important; }}
+        ul[data-testid="stSelectboxVirtualDropdown"], div[role="listbox"] {{ background-color: {NAVY_CARD} !important; }}
+        ul[data-testid="stSelectboxVirtualDropdown"] li, div[role="listbox"] * {{ color: #f7fcff !important; }}
+
+        div[data-testid="stAlertContainer"] {{
+            background-color: rgba(0,178,240,0.12) !important; border: 1px solid rgba(0,178,240,0.35) !important;
+        }}
+        div[data-testid="stAlertContainer"] p {{ color: #f7fcff !important; }}
+
+        /* Burbujas de fondo sutiles, sin animación (herramienta de trabajo, no un juego) */
+        .brand-bubble {{
+            position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+            background: radial-gradient(circle at 40% 35%, rgba(255,255,255,.28), rgba(0,178,240,.16) 45%, transparent 72%);
+        }}
+        .brand-bubble.b1 {{ width: 320px; height: 320px; top: -110px; left: -90px; }}
+        .brand-bubble.b2 {{ width: 240px; height: 240px; bottom: -90px; right: -70px; }}
+        </style>
+        <div class="brand-bubble b1"></div>
+        <div class="brand-bubble b2"></div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def _get_monday_client() -> MondayClient:
     try:
         api_token = st.secrets["MONDAY_API_TOKEN"]
@@ -66,17 +142,35 @@ def _get_monday_client() -> MondayClient:
 
 
 def main():
-    st.set_page_config(page_title="Generador de PDF — IC / CN", page_icon="📄")
+    st.set_page_config(
+        page_title="Generador de PDF — IC / CN", page_icon="📄", layout="centered"
+    )
+    _inject_brand_css()
+
     logo_path = os.path.join(os.path.dirname(__file__), "assets", "logo_postobon.png")
     st.image(logo_path, width=160)
     st.title("Generador de PDF — Idea Charts y Casos de Negocio")
 
-    doc_type = st.radio(
-        "Tipo de documento",
-        options=list(DOC_TYPES.keys()),
-        format_func=lambda key: DOC_TYPES[key]["label"],
-        horizontal=True,
-    )
+    if "doc_type" not in st.session_state:
+        st.session_state["doc_type"] = "idea_chart"
+
+    st.caption("TIPO DE DOCUMENTO")
+    col_ic, col_cn = st.columns(2)
+    with col_ic:
+        if st.button(
+            "Idea Chart",
+            type="primary" if st.session_state["doc_type"] == "idea_chart" else "secondary",
+            use_container_width=True,
+        ):
+            st.session_state["doc_type"] = "idea_chart"
+    with col_cn:
+        if st.button(
+            "Caso de Negocio",
+            type="primary" if st.session_state["doc_type"] == "caso_negocio" else "secondary",
+            use_container_width=True,
+        ):
+            st.session_state["doc_type"] = "caso_negocio"
+    doc_type = st.session_state["doc_type"]
 
     client = _get_monday_client()
     board_id = BOARD_IDS[DOC_TYPES[doc_type]["board_key"]]
